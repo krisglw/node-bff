@@ -1,0 +1,7 @@
+// 定义你的常量
+const Authorization = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiI5NTI3Iiwic2Nob29sX2lkIjoiOTUyNyIsInVzZXJfaWQiOiJkYWVkYXh1ZWRhZTFleCIsIm5hbWUiOiLogZTlpZXotoXnrqEiLCJhY2Nlc3NfdG9rZW5fdHlwZSI6IlVTRVJfQUNDRVNTX1RPS0VOIiwidXNlcm5hbWUiOiJkYWVkYXh1ZWRhZTFleCIsImp0aSI6IjBmZjE4MDc0LWM2YTYtNDYxMy1hZDg0LTlmZTc4YjVmMTM1MCJ9.HkIDKWoW8WNIYoKBox4EunjaYtDtYYUEtfSDEvdZmg8';
+
+// 导出常量
+module.exports = {
+    Authorization,
+};
