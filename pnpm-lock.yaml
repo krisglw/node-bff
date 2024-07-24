@@ -11,6 +11,7 @@ specifiers:
   jade: ~1.11.0
   morgan: ~1.9.1
   nodemon: ^3.1.4
+  typescript: ^5.5.4
 
 dependencies:
   axios: 1.7.2_debug@2.6.9
@@ -23,6 +24,7 @@ dependencies:
   jade: 1.11.0
   morgan: 1.9.1
   nodemon: 3.1.4
+  typescript: 5.5.4
 
 packages:
 
@@ -101,7 +103,7 @@ packages:
   /axios/1.7.2_debug@2.6.9:
     resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
     dependencies:
-      follow-redirects: 1.15.6_debug@2.6.9
+      follow-redirects: 1.15.6_debug@4.3.5
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -432,7 +434,7 @@ packages:
       - supports-color
     dev: false
 
-  /follow-redirects/1.15.6_debug@2.6.9:
+  /follow-redirects/1.15.6_debug@4.3.5:
     resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
     engines: {node: '>=4.0'}
     peerDependencies:
@@ -441,7 +443,7 @@ packages:
       debug:
         optional: true
     dependencies:
-      debug: 2.6.9
+      debug: 4.3.5
     dev: false
 
   /form-data/4.0.0:
@@ -516,7 +518,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.6_debug@2.6.9
+      follow-redirects: 1.15.6_debug@4.3.5
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
@@ -957,6 +959,12 @@ packages:
     dependencies:
       media-typer: 0.3.0
       mime-types: 2.1.35
+    dev: false
+
+  /typescript/5.5.4:
+    resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+    engines: {node: '>=14.17'}
+    hasBin: true
     dev: false
 
   /uglify-js/2.2.5:

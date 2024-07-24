@@ -31,7 +31,8 @@ app.use("/service1", (req, res) => {
   axios
     .get(backendUrl, {
       headers: {
-        Authorization: `Bearer ${Authorization}`,
+        // Authorization: `Bearer ${Authorization}`,
+        Authorization,
         "Tenant-Id": "9527",
         "Terminal-Type": "web",
       },
