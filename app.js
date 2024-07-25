@@ -8,10 +8,11 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const axios = require("axios");
 const cors = require("cors");
-const { Authorization } = require("./common/constants");
+const bodyParser = require("body-parser");
 
 var app = express();
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get("/api/data", (req, res) => {
   const users = [
@@ -22,29 +23,55 @@ app.get("/api/data", (req, res) => {
   res.json(users);
 });
 
+const host = "http://192.168.33.41:50000";
+
 // 中间件：根据请求路径转发到不同的后端服务
-app.use("/service1", (req, res) => {
-  console.log(req.headers, 22222222);
-  //  将所有 /service1 开头的请求转发到后端服务1
-  const backendUrl =
-    "http://192.168.33.41:50000/api/ac-course/v1/courses/1750336057783644162";
+app.use("/courseTest", (req, res) => {
+  //  将所有 /course 开头的请求转发到后端服务
+  const backendUrl = `${host}/api/ac-course/v1/courses/own-teacher-recent`;
   axios
     .get(backendUrl, {
       headers: {
-        // Authorization: `Bearer ${Authorization}`,
-        Authorization,
-        "Tenant-Id": "9527",
+        Authorization: req.headers.authorization,
+        "Tenant-Id": req.headers.tenantId,
         "Terminal-Type": "web",
+      },
+    })
+    .then((response) => {
+      if (response.data && Array.isArray(response.data.data)) {
+        response.data.data = response.data.data.map((item) => ({
+          courseId: item.courseId,
+          courseName: item.courseName,
+          teacherList: item.teacherList,
+          classBeginSemesterName: item.courseSemester.classBeginSemesterName,
+        }));
+      }
+      res.json(response.data);
+    })
+    .catch((error) => {
+      if (error.response.data.code && error.response.data.code === 401) {
+        return res.status(401).json(error.response.data);
+      }
+      return res.status(500).json(error.response.data);
+    });
+});
+
+app.use("/statisticsTest", (req, res) => {
+  const backendUrl = `${host}/api/ac-classroom/v1/data-statistics/classrooms/${req.body.classroomId}/v2`;
+  axios
+    .post(backendUrl, req.body, {
+      headers: {
+        Authorization: req.headers.authorization,
+        "Tenant-Id": req.headers.tenantId,
+        "Terminal-Type": "web",
+        "Content-Type": "application/json",
       },
     })
     .then((response) => {
       res.json(response.data);
     })
     .catch((error) => {
-      if (error.response.data.code === 401) {
-        return res.status(401).json(error.response.data);
-      }
-      return res.status(500).json(error.response.data);
+      res.status(500).json(error.response.data);
     });
 });
 
