@@ -27,7 +27,7 @@ const host = "http://192.168.33.41:50000";
 
 // 中间件：根据请求路径转发到不同的后端服务
 app.use("/courseTest", (req, res) => {
-  //  将所有 /course 开头的请求转发到后端服务
+  //  将所有 /courseTest 开头的请求转发到后端服务
   const backendUrl = `${host}/api/ac-course/v1/courses/own-teacher-recent`;
   axios
     .get(backendUrl, {
