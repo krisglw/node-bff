@@ -52,7 +52,7 @@ app.use("/courseTest", (req, res) => {
       if (error.response.data.code && error.response.data.code === 401) {
         return res.status(401).json(error.response.data);
       }
-      return res.status(500).json(error.response.data);
+      return res.status(500).json(error || error.response.data);
     });
 });
 
@@ -98,7 +98,7 @@ app.use("/statisticsTest", (req, res) => {
       res.json(response.data);
     })
     .catch((error) => {
-      res.status(500).json(error.response.data);
+      res.status(500).json(error || error.response.data);
     });
 });
 
@@ -116,7 +116,7 @@ app.use("/testPutMethod", (req, res) => {
       res.json(response.data);
     })
     .catch((error) => {
-      res.status(500).json(error.response.data);
+      res.status(500).json(error || error.response.data);
     });
 });
 
@@ -134,7 +134,7 @@ app.use("/testDeleteMethod", (req, res) => {
       res.json(response.data);
     })
     .catch((error) => {
-      res.status(500).json(error.response.data);
+      res.status(500).json(error || error.response.data);
     });
 });
 
