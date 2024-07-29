@@ -56,6 +56,33 @@ app.use("/courseTest", (req, res) => {
     });
 });
 
+app.use("/mergeDataTest", (req, res) => {
+  // 合并接口数据
+  const backendUrl1 = `${host}/api/ac-course/v1/courses/teachers/power?courseId=${req.query.courseId}&courseSemesterId=${req.query.courseSemesterId}`;
+  const backendUrl2 = `${host}/api/ac-course/v1/courses/teachers?courseId=${req.query.courseId}&courseSemesterId=${req.query.courseSemesterId}`;
+  const headers = {
+    Authorization: req.headers.authorization,
+    "Tenant-Id": req.headers.tenantId,
+    "Terminal-Type": "web",
+  };
+  Promise.all([
+    axios.get(backendUrl1, { headers }),
+    axios.get(backendUrl2, { headers }),
+  ])
+    .then((responses) => {
+      const response1 = responses[0].data;
+      const response2 = responses[1].data;
+      const data = response2.data.map((item) => ({
+        ...item,
+        powerKey: response1.data.powerKey,
+      }));
+      res.json(data);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
+});
+
 app.use("/statisticsTest", (req, res) => {
   const backendUrl = `${host}/api/ac-classroom/v1/data-statistics/classrooms/${req.body.classroomId}/v2`;
   axios
@@ -65,6 +92,42 @@ app.use("/statisticsTest", (req, res) => {
         "Tenant-Id": req.headers.tenantId,
         "Terminal-Type": "web",
         "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((error) => {
+      res.status(500).json(error.response.data);
+    });
+});
+
+app.use("/testPutMethod", (req, res) => {
+  const backendUrl = `${host}/api/ac-general/api/resource/puts`;
+  axios
+    .put(backendUrl, "", {
+      headers: {
+        Authorization: req.headers.authorization,
+        "Tenant-Id": req.headers.tenantId,
+        "Terminal-Type": "web",
+      },
+    })
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((error) => {
+      res.status(500).json(error.response.data);
+    });
+});
+
+app.use("/testDeleteMethod", (req, res) => {
+  const backendUrl = `${host}/api/ac-general/api/resource/move`;
+  axios
+    .delete(backendUrl, {
+      headers: {
+        Authorization: req.headers.authorization,
+        "Tenant-Id": req.headers.tenantId,
+        "Terminal-Type": "web",
       },
     })
     .then((response) => {
